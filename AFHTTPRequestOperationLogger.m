@@ -71,11 +71,11 @@ static void *AFHTTPRequestOperationStartDate = &AFHTTPRequestOperationStartDate;
 - (void)HTTPOperationDidStart:(NSNotification *)notification {
   AFHTTPRequestOperation *operation = (AFHTTPRequestOperation *)[notification object];
 
+    objc_setAssociatedObject(operation, AFHTTPRequestOperationStartDate, [NSDate date], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
     if (![operation isKindOfClass:[AFHTTPRequestOperation class]] || (self.shouldLogOperation && !self.shouldLogOperation(operation))) {
         return;
     }
-    
-    objc_setAssociatedObject(operation, AFHTTPRequestOperationStartDate, [NSDate date], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
   NSString *body = nil;
   if ([operation.request HTTPBody]) {
